@@ -2,17 +2,18 @@
 //  NurseryConnectApp.swift
 //  NurseryConnect
 //
-//  Created by Udula on 2026-03-30.
-//
 
 import SwiftUI
 import SwiftData
 
 @main
 struct NurseryConnectApp: App {
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Child.self,
+            DiaryEntry.self,
+            IncidentReport.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
