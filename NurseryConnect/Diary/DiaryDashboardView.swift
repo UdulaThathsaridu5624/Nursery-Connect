@@ -54,9 +54,7 @@ struct DiaryDashboardView: View {
             }
         }
         .navigationDestination(item: $selectedChild) { child in
-            // ChildDiaryView added on Day 5
-            Text("Diary for \(child.preferredName) — coming Day 5")
-                .navigationTitle(child.preferredName)
+            ChildDiaryView(child: child, date: selectedDate)
         }
     }
 }
