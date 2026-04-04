@@ -2,9 +2,11 @@
 //  IncidentListView.swift
 //  NurseryConnect
 //
+//  Created by Udula on 2026-04-02.
+//
 
 import SwiftUI
-import SwiftData
+import _SwiftData_SwiftUI
 
 struct IncidentListView: View {
     @Query(sort: \IncidentReport.incidentDate, order: .reverse)
@@ -103,3 +105,4 @@ struct IncidentListView: View {
     }
     .modelContainer(SampleData.previewContainer)
 }
+
