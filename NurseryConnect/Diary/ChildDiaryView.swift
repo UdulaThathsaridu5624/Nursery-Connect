@@ -91,9 +91,13 @@ struct ChildDiaryView: View {
                 ActivityEntryForm(child: child)
             case .sleep:
                 SleepEntryForm(child: child)
+            case .meal:
+                MealEntryForm(child: child)
+            case .nappy:
+                NappyEntryForm(child: child)
             default:
-                // Remaining forms added Days 7–8
-                Text("Form for \(type.rawValue) — coming soon")
+                // MoodEntryForm added Day 8
+                Text("Form for \(type.rawValue) — coming Day 8")
                     .presentationDetents([.medium])
             }
         }
