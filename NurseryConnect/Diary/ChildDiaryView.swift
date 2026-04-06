@@ -84,10 +84,18 @@ struct ChildDiaryView: View {
         .sheet(isPresented: $showingEntryTypePicker) {
             EntryTypePicker(selectedType: $selectedEntryType)
         }
-        // Step 2: open the correct form (forms added Days 6–8)
+        // Step 2: open the correct form
         .sheet(item: $selectedEntryType) { type in
-            Text("Form for \(type.rawValue) — coming Day 6")
-                .presentationDetents([.medium])
+            switch type {
+            case .activity:
+                ActivityEntryForm(child: child)
+            case .sleep:
+                SleepEntryForm(child: child)
+            default:
+                // Remaining forms added Days 7–8
+                Text("Form for \(type.rawValue) — coming soon")
+                    .presentationDetents([.medium])
+            }
         }
     }
 }
