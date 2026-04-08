@@ -95,10 +95,8 @@ struct ChildDiaryView: View {
                 MealEntryForm(child: child)
             case .nappy:
                 NappyEntryForm(child: child)
-            default:
-                // MoodEntryForm added Day 8
-                Text("Form for \(type.rawValue) — coming Day 8")
-                    .presentationDetents([.medium])
+            case .mood:
+                MoodEntryForm(child: child)
             }
         }
     }
