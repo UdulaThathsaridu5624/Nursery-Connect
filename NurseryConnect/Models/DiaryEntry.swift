@@ -155,7 +155,10 @@ final class DiaryEntry {
         case .sleep:
             if let start = sleepStart, let end = sleepEnd {
                 let mins = max(0, Int(end.timeIntervalSince(start) / 60))
-                return "Nap — \(mins) min"
+                let h = mins / 60
+                let m = mins % 60
+                let duration = h > 0 ? (m > 0 ? "\(h) hr \(m) min" : "\(h) hr") : "\(m) min"
+                return "Nap — \(duration)"
             }
             return sleepStart != nil ? "Sleep (ongoing)" : "Sleep"
         case .meal:
@@ -174,6 +177,30 @@ final class DiaryEntry {
                 return "\(mood.emoji) \(mood.rawValue)"
             }
             return "Wellbeing check"
+        }
+    }
+
+    /// Secondary line shown below the headline in DiaryEntryRow
+    var subtitle: String {
+        switch entryType {
+        case .activity:
+            if let cat = activityCategory,
+               let title = activityTitle,
+               cat != title {
+                return cat
+            }
+            return activityDescription.map { $0.isEmpty ? "" : $0 } ?? ""
+        case .sleep:
+            return sleepPosition?.rawValue ?? ""
+        case .meal:
+            if let ml = fluidAmountMl, let type = fluidType, ml > 0 {
+                return "\(type) — \(ml) ml"
+            }
+            return ""
+        case .nappy:
+            return creamApplied ? "Cream applied" : ""
+        case .mood:
+            return moodContext ?? ""
         }
     }
 

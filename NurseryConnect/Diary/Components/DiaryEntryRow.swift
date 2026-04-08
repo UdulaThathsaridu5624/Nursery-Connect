@@ -25,6 +25,14 @@ struct DiaryEntryRow: View {
                     .font(.cardTitle)
                     .foregroundStyle(.primary)
 
+                // Secondary info line: type-specific detail
+                if !entry.subtitle.isEmpty {
+                    Text(entry.subtitle)
+                        .font(.bodySmall)
+                        .foregroundStyle(entry.entryType.color.opacity(0.8))
+                        .lineLimit(1)
+                }
+
                 HStack(spacing: AppSpacing.xs) {
                     Text(entry.timestamp, style: .time)
                         .font(.bodySmall)
