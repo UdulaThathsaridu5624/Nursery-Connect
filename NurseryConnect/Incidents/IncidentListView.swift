@@ -67,9 +67,7 @@ struct IncidentListView: View {
             }
         }
         .sheet(isPresented: $showingNewIncident) {
-            // NewIncidentFlow added on Day 11
-            Text("New Incident Form — coming Day 11")
-                .presentationDetents([.medium])
+            NewIncidentFlow()
         }
         .navigationDestination(item: $selectedReport) { report in
             // IncidentDetailView added on Day 14
