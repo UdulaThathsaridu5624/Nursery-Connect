@@ -42,7 +42,7 @@ struct NewIncidentFlow: View {
         switch currentStep {
         case 1: return draft.selectedChild != nil && !draft.location.trimmingCharacters(in: .whitespaces).isEmpty
         case 2: return !draft.descriptionOfIncident.trimmingCharacters(in: .whitespaces).isEmpty
-                    && !draft.immediateActionTaken.trimmingCharacters(in: .whitespaces).isEmpty
+                     && !draft.immediateActionTaken.trimmingCharacters(in: .whitespaces).isEmpty
         case 3: return true
         case 4: return true
         default: return false
@@ -74,15 +74,9 @@ struct NewIncidentFlow: View {
                     case 1:
                         IncidentStep1BasicInfo(draft: $draft)
                     case 2:
-                        // Added Day 12
-                        Text("Step 2 — Description · coming Day 12")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .foregroundStyle(.secondary)
+                        IncidentStep2Description(draft: $draft)
                     case 3:
-                        // Added Day 12
-                        Text("Step 3 — Body Map · coming Day 12")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .foregroundStyle(.secondary)
+                        IncidentStep3BodyMap(draft: $draft)
                     case 4:
                         // Added Day 13
                         Text("Step 4 — Review · coming Day 13")
