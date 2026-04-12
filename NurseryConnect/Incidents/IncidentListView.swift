@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import _SwiftData_SwiftUI
+import SwiftData
 
 struct IncidentListView: View {
     @Query(sort: \IncidentReport.incidentDate, order: .reverse)
@@ -35,28 +35,8 @@ struct IncidentListView: View {
                 )
             } else {
                 List(filtered) { report in
-                    // Placeholder row — replaced on Day 10
-                    VStack(alignment: .leading, spacing: AppSpacing.xs) {
-                        HStack {
-                            Text(report.referenceNumber)
-                                .font(.cardTitle)
-                            Spacer()
-                            Text(report.status.rawValue)
-                                .font(.bodySmall.bold())
-                                .foregroundStyle(.white)
-                                .padding(.horizontal, AppSpacing.sm)
-                                .padding(.vertical, AppSpacing.xs)
-                                .background(Capsule().fill(report.status.color))
-                        }
-                        Text(report.category.rawValue)
-                            .font(.bodySmall)
-                            .foregroundStyle(.secondary)
-                        Text(report.incidentDate, style: .date)
-                            .font(.bodySmall)
-                            .foregroundStyle(.secondary)
-                    }
-                    .padding(.vertical, AppSpacing.xs)
-                    .onTapGesture { selectedReport = report }
+                    IncidentRowView(report: report)
+                        .onTapGesture { selectedReport = report }
                 }
                 .listStyle(.insetGrouped)
             }
@@ -87,14 +67,10 @@ struct IncidentListView: View {
             }
         }
         .sheet(isPresented: $showingNewIncident) {
-            // NewIncidentFlow added on Day 11
-            Text("New Incident Form — coming Day 11")
-                .presentationDetents([.medium])
+            NewIncidentFlow()
         }
         .navigationDestination(item: $selectedReport) { report in
-            // IncidentDetailView added on Day 14
-            Text("Detail for \(report.referenceNumber) — coming Day 14")
-                .navigationTitle(report.referenceNumber)
+            IncidentDetailView(report: report)
         }
     }
 }
