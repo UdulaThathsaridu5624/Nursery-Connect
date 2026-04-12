@@ -78,10 +78,7 @@ struct NewIncidentFlow: View {
                     case 3:
                         IncidentStep3BodyMap(draft: $draft)
                     case 4:
-                        // Added Day 13
-                        Text("Step 4 — Review · coming Day 13")
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                            .foregroundStyle(.secondary)
+                        IncidentStep4Review(draft: draft)
                     default:
                         EmptyView()
                     }
