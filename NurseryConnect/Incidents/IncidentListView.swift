@@ -70,9 +70,7 @@ struct IncidentListView: View {
             NewIncidentFlow()
         }
         .navigationDestination(item: $selectedReport) { report in
-            // IncidentDetailView added on Day 14
-            Text("Detail for \(report.referenceNumber) — coming Day 14")
-                .navigationTitle(report.referenceNumber)
+            IncidentDetailView(report: report)
         }
     }
 }
