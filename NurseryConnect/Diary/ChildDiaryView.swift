@@ -43,6 +43,7 @@ struct ChildDiaryView: View {
                                 Section {
                                     ForEach(typeEntries) { entry in
                                         DiaryEntryRow(entry: entry)
+                                            .listRowBackground(Color.nurseryCard)
                                             .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                                                 Button(role: .destructive) {
                                                     modelContext.delete(entry)
@@ -60,6 +61,7 @@ struct ChildDiaryView: View {
                         }
                     }
                     .listStyle(.insetGrouped)
+                    .scrollContentBackground(.hidden)
                 }
             }
 
