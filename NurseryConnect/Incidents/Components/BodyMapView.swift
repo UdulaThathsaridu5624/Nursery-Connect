@@ -188,7 +188,7 @@ struct BodyMapView: View {
                                                 abs($0.xNormalized - nx) < threshold &&
                                                 abs($0.yNormalized - ny) < threshold
                                             }) {
-                                                withAnimation(.spring(duration: 0.2)) {
+                                                _ = withAnimation(.spring(duration: 0.2)) {
                                                     marks.remove(at: idx)
                                                 }
                                             } else {

@@ -77,6 +77,7 @@ struct ChildDiaryView: View {
                     .clipShape(Circle())
                     .shadow(color: Color.nurseryPrimary.opacity(0.4), radius: 8, x: 0, y: 4)
             }
+            .buttonStyle(FABButtonStyle())
             .padding(AppSpacing.lg)
         }
         .navigationTitle(child.preferredName)
