@@ -30,8 +30,8 @@ struct DiaryDashboardView: View {
             } else {
                 ScrollView {
                     LazyVGrid(columns: columns, spacing: AppSpacing.md) {
-                        ForEach(activeChildren) { child in
-                            ChildCard(child: child, date: selectedDate)
+                        ForEach(Array(activeChildren.enumerated()), id: \.element.id) { index, child in
+                            ChildCard(child: child, date: selectedDate, index: index)
                                 .onTapGesture { selectedChild = child }
                         }
                     }

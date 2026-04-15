@@ -9,6 +9,7 @@ import SwiftData
 struct ChildCard: View {
     let child: Child
     let date: Date
+    var index: Int = 0
 
     @State private var visible = false
 
@@ -84,7 +85,8 @@ struct ChildCard: View {
         .opacity(visible ? 1 : 0)
         .offset(y: visible ? 0 : 16)
         .onAppear {
-            withAnimation(.spring(response: 0.45, dampingFraction: 0.8)) {
+            withAnimation(.spring(response: 0.45, dampingFraction: 0.8)
+                .delay(Double(index) * 0.06)) {
                 visible = true
             }
         }
