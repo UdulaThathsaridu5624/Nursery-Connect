@@ -77,6 +77,7 @@ struct IncidentStep1BasicInfo: View {
             Section("Location") {
                 TextField("e.g. Outdoor play area, Sunshine Room…",
                           text: $draft.location)
+                    .accessibilityLabel("Location")
             }
         }
     }
