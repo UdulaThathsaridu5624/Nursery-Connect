@@ -19,6 +19,7 @@ struct IncidentStep2Description: View {
             Section {
                 TextEditor(text: $draft.descriptionOfIncident)
                     .frame(minHeight: 100)
+                    .accessibilityLabel("Description")
                     .overlay(alignment: .topLeading) {
                         if draft.descriptionOfIncident.isEmpty {
                             Text("Describe what happened, including the sequence of events leading to the incident…")
@@ -54,6 +55,7 @@ struct IncidentStep2Description: View {
             Section {
                 TextEditor(text: $draft.immediateActionTaken)
                     .frame(minHeight: 80)
+                    .accessibilityLabel("Immediate action")
                     .overlay(alignment: .topLeading) {
                         if draft.immediateActionTaken.isEmpty {
                             Text("e.g. Applied cold compress, comforted child, called parent…")

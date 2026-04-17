@@ -36,9 +36,11 @@ struct IncidentListView: View {
             } else {
                 List(filtered) { report in
                     IncidentRowView(report: report)
+                        .listRowBackground(Color.nurseryCard)
                         .onTapGesture { selectedReport = report }
                 }
                 .listStyle(.insetGrouped)
+                .scrollContentBackground(.hidden)
             }
         }
         .navigationTitle("Incidents")
@@ -66,6 +68,7 @@ struct IncidentListView: View {
                 }
             }
         }
+        .background(Color.nurseryBackground)
         .sheet(isPresented: $showingNewIncident) {
             NewIncidentFlow()
         }

@@ -15,10 +15,15 @@ struct NurseryConnectApp: App {
             DiaryEntry.self,
             IncidentReport.self,
         ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        let isUITesting = CommandLine.arguments.contains("--uitesting")
+        let modelConfiguration = ModelConfiguration(schema: schema,
+                                                     isStoredInMemoryOnly: isUITesting)
         do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
+            let container = try ModelContainer(for: schema, configurations: [modelConfiguration])
+            if isUITesting {
+                SampleData.insertSampleData(into: container.mainContext)
+            }
+            return container
         } catch {
             fatalError("Could not create ModelContainer: \(error)")
         }
