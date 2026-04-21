@@ -103,7 +103,7 @@ enum SampleData {
         // MARK: - Incident Reports
 
         let incident1 = IncidentReport(
-            referenceNumber: "INC-20260329-001",
+            referenceNumber: "INC-2026-04-19-001",
             category: .bump,
             severity: .minor,
             status: .parentNotified,
@@ -123,7 +123,7 @@ enum SampleData {
         incident1.parentSignatureObtained = true
 
         let incident2 = IncidentReport(
-            referenceNumber: "INC-20260331-001",
+            referenceNumber: "INC-2026-04-21-002",
             category: .fall,
             severity: .minor,
             status: .pendingReview,

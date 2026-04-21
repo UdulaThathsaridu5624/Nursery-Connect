@@ -70,12 +70,12 @@ struct NurseryConnectTests {
         #expect(child.initials == "EJ")
     }
 
-    // MARK: 4 — generateRef: correct INC-YYYYMMDD-NNN format
+    // MARK: 4 — generateRef: correct INC-YYYY-MM-DD-NNN format
 
-    @Test("generateRef produces correct INC-YYYYMMDD-NNN format")
+    @Test("generateRef produces correct INC-YYYY-MM-DD-NNN format")
     func generateRefFormat() {
         let ref = generateRef(date: date(year: 2026, month: 4, day: 15), existingCount: 0)
-        #expect(ref == "INC-20260415-001")
+        #expect(ref == "INC-2026-04-15-001")
     }
 
     // MARK: 5 — generateRef: increments from existing count
@@ -83,7 +83,51 @@ struct NurseryConnectTests {
     @Test("generateRef pads and increments from existing count correctly")
     func generateRefIncrement() {
         let ref = generateRef(date: date(year: 2026, month: 4, day: 15), existingCount: 4)
-        #expect(ref == "INC-20260415-005")
+        #expect(ref == "INC-2026-04-15-005")
+    }
+
+    // MARK: 5b — generateRef: date is taken from incident date
+
+    @Test("generateRef uses the incident date in the reference")
+    func generateRefUsesIncidentDate() {
+        let ref = generateRef(date: date(year: 2027, month: 1, day: 2), existingCount: 0)
+        #expect(ref == "INC-2027-01-02-001")
+    }
+
+    // MARK: 5c — migrateIncidentReferencesIfNeeded
+
+    @Test("migrateIncidentReferencesIfNeeded rewrites legacy stored references")
+    func migrateLegacyIncidentReferences() throws {
+        let container = try makeContainer(for: IncidentReport.self)
+        let ctx = ModelContext(container)
+
+        let olderReport = IncidentReport(
+            referenceNumber: "INC-2026-0001",
+            category: .bump, severity: .minor,
+            incidentDate: date(year: 2026, month: 4, day: 15),
+            location: "Playground",
+            descriptionOfIncident: "Legacy report",
+            immediateActionTaken: "Cold compress",
+            reportedByName: "Sarah Mitchell"
+        )
+        let newerReport = IncidentReport(
+            referenceNumber: "INC-20260416-002",
+            category: .fall, severity: .moderate,
+            incidentDate: date(year: 2026, month: 4, day: 16),
+            location: "Garden",
+            descriptionOfIncident: "Legacy report",
+            immediateActionTaken: "Comfort provided",
+            reportedByName: "Sarah Mitchell"
+        )
+
+        ctx.insert(newerReport)
+        ctx.insert(olderReport)
+
+        let didChange = migrateIncidentReferencesIfNeeded([newerReport, olderReport])
+
+        #expect(didChange)
+        #expect(olderReport.referenceNumber == "INC-2026-04-15-001")
+        #expect(newerReport.referenceNumber == "INC-2026-04-16-002")
     }
 
     // MARK: 6 — BodyMapMark JSON encode/decode round-trip
@@ -125,7 +169,7 @@ struct NurseryConnectTests {
         let container = try makeContainer(for: IncidentReport.self)
         let ctx = ModelContext(container)
         let report = IncidentReport(
-            referenceNumber: "INC-20260415-001",
+            referenceNumber: "INC-2026-04-15-001",
             category: .bump, severity: .minor,
             incidentDate: .now, location: "Playground",
             descriptionOfIncident: "Test incident",
@@ -144,7 +188,7 @@ struct NurseryConnectTests {
         let container = try makeContainer(for: IncidentReport.self)
         let ctx = ModelContext(container)
         let report = IncidentReport(
-            referenceNumber: "INC-20260415-002",
+            referenceNumber: "INC-2026-04-15-002",
             category: .fall, severity: .moderate,
             incidentDate: .now, location: "Garden",
             descriptionOfIncident: "Test incident",
